@@ -1,6 +1,6 @@
 package com.mbrull.rest;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,24 +24,29 @@ public class UserController {
     UserRepository respository;
 
     @RequestMapping("/user/")
-    public ResponseEntity<User> user(@RequestParam(value = "username", defaultValue = "") String username) {
-        return new ResponseEntity<User>(new User(0, username), HttpStatus.OK);
+    public ResponseEntity<String> user(@RequestParam(value = "username", defaultValue = "") String username) {
+        long count = respository.count();
+        return new ResponseEntity<String>("There are " + count + " users enrolled", HttpStatus.OK);
     }
 
-    @RequestMapping("/user/{username}")
-    public ResponseEntity<List<User>> findAllUsername(@PathVariable("username") String username) {
-        return new ResponseEntity<List<User>>(respository.findByUsername(username), HttpStatus.OK);
+    @RequestMapping("/user/{id}")
+    public ResponseEntity<Optional<User>> findById(@PathVariable("id") Long id) {
+        return new ResponseEntity<Optional<User>>(respository.findOne(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody String username, UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + username);
 
+        if (respository.findByUsername(username).isPresent()) {
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+        
         User user = new User(username);
         respository.save(user);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{username}").buildAndExpand(user.getUsername()).toUri());
+        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 

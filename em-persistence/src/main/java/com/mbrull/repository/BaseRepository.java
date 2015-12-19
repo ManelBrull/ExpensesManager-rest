@@ -18,4 +18,6 @@ interface BaseRepository<T, ID extends Serializable> extends Repository<T, ID> {
 
     T save(T persisted);
 
+    long count();
+
 }

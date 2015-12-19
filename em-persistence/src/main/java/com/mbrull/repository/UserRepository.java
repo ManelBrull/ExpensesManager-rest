@@ -1,6 +1,6 @@
 package com.mbrull.repository;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +9,8 @@ import com.mbrull.entities.User;
 @Repository
 public interface UserRepository extends BaseRepository<User, Long> {
 
-    List<User> findByUsername(String username);
+    Optional<User> findByUsername(String username);
+
+    Optional<User> findById(Long id);
 
 }
