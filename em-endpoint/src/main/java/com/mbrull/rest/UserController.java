@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,44 +15,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.mbrull.EmPersistence;
 import com.mbrull.entities.User;
-import com.mbrull.repository.UserRepository;
-import com.mbrull.specifications.UserSpecifications;
 
 @RestController
 public class UserController {
 
     @Autowired
-    UserRepository repository;
+    EmPersistence emPersistence;
 
     @RequestMapping("/user/")
     public ResponseEntity<String> user(@RequestParam(value = "username", defaultValue = "") String username) {
-        long count = repository.count();
+        long count = emPersistence.countUsers();
         return new ResponseEntity<String>("There are " + count + " users enrolled", HttpStatus.OK);
     }
 
     @RequestMapping("/user/{id}")
     public ResponseEntity<Optional<User>> findById(@PathVariable("id") Long id) {
-        return new ResponseEntity<Optional<User>>(repository.findOne(id), HttpStatus.OK);
+        return new ResponseEntity<Optional<User>>(emPersistence.getUser(id), HttpStatus.OK);
     }
 
     @RequestMapping("/user/like/{username}")
     public ResponseEntity<List<User>> findByUsernameLike(@PathVariable("username") String username) {
-        Specification<User> spec = UserSpecifications.usernameLike(username);
-        List<User> entries = repository.findAll(spec);
+        List<User> entries = emPersistence.findUsersWithSimiliarUsername(username);
         return new ResponseEntity<List<User>>(entries, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody String username, UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating User " + username);
 
-        if (repository.findByUsernameIgnoreCase(username).isPresent()) {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-        
         User user = new User(username);
-        repository.save(user);
+        emPersistence.createUser(user);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
