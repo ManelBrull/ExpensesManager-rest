@@ -21,29 +21,29 @@ import com.mbrull.repository.UserRepository;
 public class UserController {
 
     @Autowired
-    UserRepository respository;
+    UserRepository repository;
 
     @RequestMapping("/user/")
     public ResponseEntity<String> user(@RequestParam(value = "username", defaultValue = "") String username) {
-        long count = respository.count();
+        long count = repository.count();
         return new ResponseEntity<String>("There are " + count + " users enrolled", HttpStatus.OK);
     }
 
     @RequestMapping("/user/{id}")
     public ResponseEntity<Optional<User>> findById(@PathVariable("id") Long id) {
-        return new ResponseEntity<Optional<User>>(respository.findOne(id), HttpStatus.OK);
+        return new ResponseEntity<Optional<User>>(repository.findOne(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody String username, UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + username);
 
-        if (respository.findByUsername(username).isPresent()) {
+        if (repository.findByUsernameIgnoreCase(username).isPresent()) {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
         
         User user = new User(username);
-        respository.save(user);
+        repository.save(user);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
