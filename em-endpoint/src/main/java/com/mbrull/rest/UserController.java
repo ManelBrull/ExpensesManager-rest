@@ -1,8 +1,10 @@
 package com.mbrull.rest;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.mbrull.entities.User;
 import com.mbrull.repository.UserRepository;
+import com.mbrull.specifications.UserSpecifications;
 
 @RestController
 public class UserController {
@@ -32,6 +35,13 @@ public class UserController {
     @RequestMapping("/user/{id}")
     public ResponseEntity<Optional<User>> findById(@PathVariable("id") Long id) {
         return new ResponseEntity<Optional<User>>(repository.findOne(id), HttpStatus.OK);
+    }
+
+    @RequestMapping("/user/like/{username}")
+    public ResponseEntity<List<User>> findByUsernameLike(@PathVariable("username") String username) {
+        Specification<User> spec = UserSpecifications.usernameLike(username);
+        List<User> entries = repository.findAll(spec);
+        return new ResponseEntity<List<User>>(entries, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
