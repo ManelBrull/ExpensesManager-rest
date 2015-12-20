@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.mbrull.entities.User;
 import com.mbrull.repository.UserRepository;
@@ -38,5 +40,9 @@ public class EmPersistenceImpl implements EmPersistence {
             return;
         }
         repository.save(user);
+    }
+
+    public Page<User> getUsers(Pageable pageRequest) {
+        return repository.findAll(pageRequest);
     }
 }
