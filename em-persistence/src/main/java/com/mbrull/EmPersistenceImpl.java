@@ -4,16 +4,21 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 
 import com.mbrull.entities.User;
 import com.mbrull.repository.UserRepository;
-import com.mbrull.specifications.UserSpecifications;
+import com.mbrull.searchservice.UserSearchService;
 
 public class EmPersistenceImpl implements EmPersistence {
 
+    private final UserRepository repository;
+    private final UserSearchService searchService;
+
     @Autowired
-    UserRepository repository;
+    public EmPersistenceImpl(UserRepository repository, UserSearchService searchService) {
+        this.repository = repository;
+        this.searchService = searchService;
+    }
 
     public Long countUsers() {
         return repository.count();
@@ -24,8 +29,7 @@ public class EmPersistenceImpl implements EmPersistence {
     }
 
     public List<User> findUsersWithSimiliarUsername(String username) {
-        Specification<User> spec = UserSpecifications.usernameLike(username);
-        List<User> entries = repository.findAll(spec);
+        List<User> entries = searchService.findBySimilarUsername(username);
         return entries;
     }
 
