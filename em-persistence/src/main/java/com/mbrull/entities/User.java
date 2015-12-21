@@ -12,8 +12,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column
+    @Column(nullable = false, unique = true, length = 255)
     private String username;
+    @Column(nullable = false, unique = true, length = 255)
+    private String email;
 
     protected User() {
     }
@@ -22,9 +24,10 @@ public class User {
         this.username = username;
     }
 
-    public User(long id, String username) {
+    public User(long id, String username, String email) {
         this.id = id;
         this.username = username;
+        this.email = email;
     }
 
     public long getId() {

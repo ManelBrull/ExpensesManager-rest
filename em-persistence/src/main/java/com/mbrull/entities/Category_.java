@@ -5,12 +5,11 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
-@StaticMetamodel(User.class)
-public abstract class User_ {
+@StaticMetamodel(Category.class)
+public abstract class Category_ {
 
-	public static volatile SingularAttribute<User, Long> id;
-	public static volatile SingularAttribute<User, String> email;
-	public static volatile SingularAttribute<User, String> username;
+	public static volatile SingularAttribute<Category, String> name;
+	public static volatile SingularAttribute<Category, Long> id;
 
 }
 
