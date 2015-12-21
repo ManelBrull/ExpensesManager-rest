@@ -20,4 +20,6 @@ public interface EmPersistence {
 
     public Page<User> getUsers(Pageable pageRequest);
 
+    public void initDatabase();
+
 }

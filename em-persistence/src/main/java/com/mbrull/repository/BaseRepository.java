@@ -1,7 +1,6 @@
 package com.mbrull.repository;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -14,8 +13,6 @@ import org.springframework.data.repository.Repository;
 interface BaseRepository<T, ID extends Serializable> extends Repository<T, ID>, JpaSpecificationExecutor<T> {
 
     void delete(T deleted);
-
-    List<T> findAll();
 
     Page<T> findAll(Pageable pageRequest);
 

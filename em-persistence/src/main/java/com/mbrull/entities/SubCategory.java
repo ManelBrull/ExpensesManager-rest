@@ -31,6 +31,11 @@ public class SubCategory {
         this.category = category;
     }
 
+    public SubCategory(String name, Category category) {
+        this.name = name;
+        this.category = category;
+    }
+
     public long getId() {
         return id;
     }
