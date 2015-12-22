@@ -111,6 +111,5 @@ public class EmPersistenceImpl implements EmPersistence {
         subCategoryRepository.save(travel);
         subCategoryRepository.save(gift);
         subCategoryRepository.save(home);
-
     }
 }

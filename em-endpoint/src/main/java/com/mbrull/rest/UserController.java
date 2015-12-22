@@ -59,4 +59,10 @@ public class UserController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
+    @RequestMapping("/init/")
+    public ResponseEntity<Void> initdatabase() {
+        emPersistence.initDatabase();
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
 }
