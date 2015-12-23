@@ -81,26 +81,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
-			<plugin>
-			    <groupId>org.bsc.maven</groupId>
-			    <artifactId>maven-processor-plugin</artifactId>
-			    <version>${maven-processor-plugin.version}</version>
-			    <executions>
-			        <execution>
-			            <id>process</id>
-			            <goals>
-			                <goal>process</goal>
-			            </goals>
-			            <phase>generate-sources</phase>
-			            <configuration>
-			                <processors>
-			                    <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-			                </processors>
-			            </configuration>
-			        </execution>
-			    </executions>
-			</plugin>
 		</plugins>
 	</build>
 	
