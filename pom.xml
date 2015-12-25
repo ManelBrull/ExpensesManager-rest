@@ -26,16 +26,60 @@
 	<modules>
 		<module>em-endpoint</module>
 		<module>em-persistence</module>
+		<module>em-commons</module>
 	</modules>
 
 	<build>
+	
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+	</plugins>
+	<pluginManagement>	
+	<plugins>	
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<dependencies>
+					<dependency>
+				  		<groupId>org.apache.maven.surefire</groupId>
+				  		<artifactId>surefire-junit47</artifactId>
+				  		<version>2.19</version>
+				 	</dependency>
+				</dependencies>
+			  	<configuration>
+			    	<excludedGroups>com.mbrull.test.IntegrationTest</excludedGroups>
+			  	</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<dependencies>
+					<dependency>
+				  		<groupId>org.apache.maven.surefire</groupId>
+				  		<artifactId>surefire-junit47</artifactId>
+				  		<version>2.19</version>
+				 	</dependency>
+				</dependencies>
+			  	<configuration>
+				    <includes>
+			      		<include>**/*.java</include>
+			    	</includes>
+			    	<groups>com.mbrull.test.IntegrationTest</groups>
+			  	</configuration>
+			  	<executions>
+	    			<execution>
+	      				<goals>
+	        				<goal>integration-test</goal>
+	        				<goal>verify</goal>
+	      				</goals>
+	    			</execution>
+	  			</executions>
+			</plugin>
 		</plugins>
+		</pluginManagement>
 	</build>
 	
-
 </project>

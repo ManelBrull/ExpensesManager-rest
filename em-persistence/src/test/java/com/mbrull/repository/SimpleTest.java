@@ -1,18 +1,20 @@
 package com.mbrull.repository;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import com.mbrull.configuration.EmPersistenceConfiguration;
-import com.mbrull.configuration.PersistenceContext;
+import com.mbrull.EmPersistenceMain;
+import com.mbrull.test.UnitTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource("/test.properties")
-@ContextConfiguration(classes = { PersistenceContext.class, EmPersistenceConfiguration.class })
+@SpringApplicationConfiguration(classes = EmPersistenceMain.class)
+@Category(UnitTest.class)
 public class SimpleTest {
 
     @Test

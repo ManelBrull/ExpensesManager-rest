@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>em-endpoint</artifactId>
+	<artifactId>em-commons</artifactId>
 	<packaging>jar</packaging>
 
-	<name>em-endpoint</name>
-	<description>Endpoints for em</description>
+	<name>em-commons</name>
+	<description>Common utilities for em project</description>
 
 	<parent>
   		<groupId>com.mbrull</groupId>
@@ -23,24 +23,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.mbrull</groupId>
-			<artifactId>em-persistence</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mbrull</groupId>
-			<artifactId>em-commons</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	
@@ -60,7 +49,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 			</plugin>
-			
 		</plugins>
 	</build>
 	

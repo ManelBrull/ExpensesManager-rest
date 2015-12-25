@@ -6,9 +6,10 @@ import static org.junit.Assert.assertThat;
 import java.util.Optional;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,16 +20,17 @@ import org.springframework.util.Assert;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mbrull.configuration.EmPersistenceConfiguration;
-import com.mbrull.configuration.PersistenceContext;
+import com.mbrull.EmPersistenceMain;
 import com.mbrull.entities.User;
+import com.mbrull.test.IntegrationTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource("/test.properties")
-@ContextConfiguration(classes = { PersistenceContext.class, EmPersistenceConfiguration.class })
+@SpringApplicationConfiguration(classes = EmPersistenceMain.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("/UserTestData.xml")
+@Category(IntegrationTest.class)
 public class UserRepositoryTest {
 
     
