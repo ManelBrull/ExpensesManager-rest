@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class SubCategory {
+public class Subcategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,16 +22,16 @@ public class SubCategory {
     @JoinColumn(name = "category_fk", nullable = false)
     public Category category;
 
-    protected SubCategory() {
+    protected Subcategory() {
     }
 
-    public SubCategory(long id, String name, Category category) {
+    public Subcategory(long id, String name, Category category) {
         this.id = id;
         this.name = name;
         this.category = category;
     }
 
-    public SubCategory(String name, Category category) {
+    public Subcategory(String name, Category category) {
         this.name = name;
         this.category = category;
     }

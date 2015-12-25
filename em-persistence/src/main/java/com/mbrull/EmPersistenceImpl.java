@@ -8,11 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.mbrull.entities.Category;
-import com.mbrull.entities.SubCategory;
+import com.mbrull.entities.Subcategory;
 import com.mbrull.entities.User;
 import com.mbrull.repository.CategoryRepository;
 import com.mbrull.repository.ExpenseRepository;
-import com.mbrull.repository.SubCategoryRepository;
+import com.mbrull.repository.SubcategoryRepository;
 import com.mbrull.repository.UserRepository;
 import com.mbrull.searchservice.UserSearchService;
 
@@ -21,12 +21,12 @@ public class EmPersistenceImpl implements EmPersistence {
     private final UserRepository userRepository;
     private final UserSearchService searchService;
     private final CategoryRepository categoryRepository;
-    private final SubCategoryRepository subCategoryRepository;
+    private final SubcategoryRepository subCategoryRepository;
     private final ExpenseRepository expenseRepository;
 
     @Autowired
     public EmPersistenceImpl(UserRepository repository, UserSearchService searchService,
-            CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository,
+            CategoryRepository categoryRepository, SubcategoryRepository subCategoryRepository,
             ExpenseRepository expenseRepository) {
 
         this.userRepository = repository;
@@ -72,21 +72,21 @@ public class EmPersistenceImpl implements EmPersistence {
         categoryRepository.save(extras);
 
         
-        SubCategory grorceries = new SubCategory("Grorceries", survival);
-        SubCategory health = new SubCategory("Health", survival);
-        SubCategory transport = new SubCategory("Transport", survival);
+        Subcategory grorceries = new Subcategory("Grorceries", survival);
+        Subcategory health = new Subcategory("Health", survival);
+        Subcategory transport = new Subcategory("Transport", survival);
 
         subCategoryRepository.save(grorceries);
         subCategoryRepository.save(health);
         subCategoryRepository.save(transport);
 
-        SubCategory bar = new SubCategory("Bars", leisureAndVice);
-        SubCategory restaurants = new SubCategory("Restaurants", leisureAndVice);
-        SubCategory fastFood = new SubCategory("Fast food", leisureAndVice);
-        SubCategory party = new SubCategory("Party", leisureAndVice);
-        SubCategory tobacco = new SubCategory("Tobacco", leisureAndVice);
-        SubCategory alcohol = new SubCategory("Alcohol", leisureAndVice);
-        SubCategory clothes = new SubCategory("Clothes", leisureAndVice);
+        Subcategory bar = new Subcategory("Bars", leisureAndVice);
+        Subcategory restaurants = new Subcategory("Restaurants", leisureAndVice);
+        Subcategory fastFood = new Subcategory("Fast food", leisureAndVice);
+        Subcategory party = new Subcategory("Party", leisureAndVice);
+        Subcategory tobacco = new Subcategory("Tobacco", leisureAndVice);
+        Subcategory alcohol = new Subcategory("Alcohol", leisureAndVice);
+        Subcategory clothes = new Subcategory("Clothes", leisureAndVice);
 
         subCategoryRepository.save(bar);
         subCategoryRepository.save(restaurants);
@@ -96,17 +96,17 @@ public class EmPersistenceImpl implements EmPersistence {
         subCategoryRepository.save(alcohol);
         subCategoryRepository.save(clothes);
 
-        SubCategory books = new SubCategory("Books", culture);
-        SubCategory music = new SubCategory("Music", culture);
-        SubCategory shows = new SubCategory("Shows", culture);
+        Subcategory books = new Subcategory("Books", culture);
+        Subcategory music = new Subcategory("Music", culture);
+        Subcategory shows = new Subcategory("Shows", culture);
 
         subCategoryRepository.save(books);
         subCategoryRepository.save(music);
         subCategoryRepository.save(shows);
 
-        SubCategory travel = new SubCategory("Travel", extras);
-        SubCategory gift = new SubCategory("Gift", extras);
-        SubCategory home = new SubCategory("Home", extras);
+        Subcategory travel = new Subcategory("Travel", extras);
+        Subcategory gift = new Subcategory("Gift", extras);
+        Subcategory home = new Subcategory("Home", extras);
 
         subCategoryRepository.save(travel);
         subCategoryRepository.save(gift);

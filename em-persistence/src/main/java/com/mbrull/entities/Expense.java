@@ -36,13 +36,13 @@ public class Expense {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subcategory_fk")
-    private SubCategory subcategory;
+    private Subcategory subcategory;
 
     protected Expense() {
     }
 
     public Expense(long id, String name, float cost, Date dateExpense, User user, Category category,
-            SubCategory subcategory) {
+            Subcategory subcategory) {
         this.id = id;
         this.name = name;
         this.cost = cost;
@@ -100,11 +100,11 @@ public class Expense {
         this.category = category;
     }
 
-    public SubCategory getSubcategory() {
+    public Subcategory getSubcategory() {
         return subcategory;
     }
 
-    public void setSubcategory(SubCategory subcategory) {
+    public void setSubcategory(Subcategory subcategory) {
         this.subcategory = subcategory;
     }
 
