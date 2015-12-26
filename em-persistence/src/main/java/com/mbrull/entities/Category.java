@@ -1,10 +1,15 @@
 package com.mbrull.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Category {
@@ -15,6 +20,9 @@ public class Category {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", orphanRemoval = true)
+    private Set<Subcategory> subcategories = new HashSet<Subcategory>();
 
     protected Category() {
     }
@@ -43,5 +51,27 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<Subcategory> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(Set<Subcategory> subcategories) {
+        this.subcategories = subcategories;
+        for (Subcategory sub : subcategories) {
+            sub.setCategory(this);
+        }
+    }
+
+    public void addSubcategory(Subcategory subcategory) {
+        this.subcategories.add(subcategory);
+        subcategory.setCategory(this);
+    }
+
+    public void removeSubcategory(Subcategory subcategory) {
+        subcategory.setCategory(null);
+        this.subcategories.remove(subcategory);
+    }
+
 
 }

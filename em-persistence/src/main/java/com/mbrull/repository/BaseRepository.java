@@ -22,6 +22,4 @@ interface BaseRepository<T, ID extends Serializable> extends Repository<T, ID>, 
 
     long count();
 
-    void flush();
-
 }

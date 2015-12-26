@@ -19,7 +19,7 @@ public class Subcategory {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_fk", nullable = false)
+    @JoinColumn(name = "category_fk", nullable = false, insertable = false, updatable = false)
     public Category category;
 
     protected Subcategory() {
