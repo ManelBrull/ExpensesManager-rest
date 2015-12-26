@@ -27,15 +27,15 @@ public class Expense {
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_fk", nullable = false)
+    @JoinColumn(name = "user_fk", nullable = false, insertable = false, updatable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_fk", nullable = false)
+    @JoinColumn(name = "category_fk", nullable = false, insertable = false, updatable = false)
     private Category category;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "subcategory_fk")
+    @JoinColumn(name = "subcategory_fk", insertable = false, updatable = false)
     private Subcategory subcategory;
 
     protected Expense() {
