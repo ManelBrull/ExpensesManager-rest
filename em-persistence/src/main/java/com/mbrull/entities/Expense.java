@@ -23,8 +23,8 @@ public class Expense {
     private String name;
     @Column(nullable = false, precision = 3)
     private float cost;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateExpense;
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_fk", nullable = false)
@@ -41,12 +41,12 @@ public class Expense {
     protected Expense() {
     }
 
-    public Expense(long id, String name, float cost, Date dateExpense, User user, Category category,
+    public Expense(long id, String name, float cost, Date date, User user, Category category,
             Subcategory subcategory) {
         this.id = id;
         this.name = name;
         this.cost = cost;
-        this.dateExpense = dateExpense;
+        this.date = date;
         this.user = user;
         this.category = category;
         this.subcategory = subcategory;
@@ -76,12 +76,12 @@ public class Expense {
         this.cost = cost;
     }
 
-    public Date getDateExpense() {
-        return dateExpense;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDateExpense(Date dateExpense) {
-        this.dateExpense = dateExpense;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public User getUser() {
