@@ -28,6 +28,7 @@
 		<module>em-endpoint</module>
 		<module>em-persistence</module>
 		<module>em-commons</module>
+		<module>em-core</module>
 	</modules>
 
 	<build>
