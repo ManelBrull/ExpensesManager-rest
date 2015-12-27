@@ -3,7 +3,7 @@ package com.mbrull.endpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mbrull.core.EmCore;
-import com.mbrull.persistence.entities.User;
+import com.mbrull.core.dto.UserDTO;
 
 public class EmEndpointImpl implements EmEndpoint {
 
@@ -14,7 +14,7 @@ public class EmEndpointImpl implements EmEndpoint {
         this.core = core;
     }
 
-    public void createUser(User userToCreate) {
+    public void createUser(UserDTO userToCreate) {
         core.createUser(userToCreate);
     }
 

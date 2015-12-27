@@ -1,9 +1,9 @@
 package com.mbrull.core;
 
-import com.mbrull.persistence.entities.User;
+import com.mbrull.core.dto.UserDTO;
 
 public interface EmCore {
 
-    public void createUser(User userToCreate);
+    public void createUser(UserDTO userToCreate);
 
 }

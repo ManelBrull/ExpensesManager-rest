@@ -22,6 +22,8 @@ public class User {
     private String username;
     @Column(nullable = false, unique = true, length = 255)
     private String email;
+    @Column
+    private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Expense> expenses = new HashSet<Expense>();
@@ -36,6 +38,12 @@ public class User {
     public User(String username, String email) {
         this.username = username;
         this.email = email;
+    }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
     public User(long id, String username, String email) {
@@ -87,6 +95,14 @@ public class User {
     public void removeExpense(Expense subcategory) {
         subcategory.setUser(null);
         this.expenses.remove(subcategory);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

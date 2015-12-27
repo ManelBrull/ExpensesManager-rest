@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.mbrull.core.dto.UserDTO;
 import com.mbrull.endpoint.EmEndpoint;
-import com.mbrull.persistence.entities.User;
 
 @RestController
 @RequestMapping("/user")
@@ -22,14 +22,14 @@ public class UserController {
 
     // TODO: exception controlling and returning to client interface
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createUser(@RequestBody String username, UriComponentsBuilder ucBuilder) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ResponseEntity<Void> createUser(@RequestBody UserDTO user, UriComponentsBuilder ucBuilder) {
 
-        User user = new User(username);
         endpoint.createUser(user);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/create/success").build().toUri());
+
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
     /*
