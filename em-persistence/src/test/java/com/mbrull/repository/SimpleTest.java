@@ -8,8 +8,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import com.mbrull.EmPersistenceMain;
-import com.mbrull.test.UnitTest;
+import com.mbrull.commons.test.UnitTest;
+import com.mbrull.persistence.EmPersistenceMain;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource("/test.properties")

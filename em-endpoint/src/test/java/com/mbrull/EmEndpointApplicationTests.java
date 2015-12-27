@@ -7,7 +7,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.mbrull.test.IntegrationTest;
+import com.mbrull.commons.test.IntegrationTest;
+import com.mbrull.endpoint.EmEndpointApplicationMain;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = EmEndpointApplicationMain.class)

@@ -20,10 +20,13 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.mbrull.EmPersistenceMain;
-import com.mbrull.entities.Category;
-import com.mbrull.entities.Subcategory;
-import com.mbrull.test.IntegrationTest;
+import com.mbrull.commons.test.IntegrationTest;
+import com.mbrull.persistence.EmPersistenceMain;
+import com.mbrull.persistence.entities.Category;
+import com.mbrull.persistence.entities.Subcategory;
+import com.mbrull.persistence.repository.CategoryRepository;
+import com.mbrull.persistence.repository.SubcategoryRepository;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource("/test.properties")

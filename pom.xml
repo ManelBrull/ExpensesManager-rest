@@ -52,7 +52,7 @@
 						</dependency>
 					</dependencies>
 					<configuration>
-						<excludedGroups>com.mbrull.test.IntegrationTest</excludedGroups>
+						<excludedGroups>com.mbrull.commons.test.IntegrationTest</excludedGroups>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -69,7 +69,7 @@
 						<includes>
 							<include>**/*.java</include>
 						</includes>
-						<groups>com.mbrull.test.IntegrationTest</groups>
+						<groups>com.mbrull.commons.test.IntegrationTest</groups>
 					</configuration>
 					<executions>
 						<execution>
