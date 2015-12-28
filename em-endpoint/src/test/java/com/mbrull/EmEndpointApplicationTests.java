@@ -8,11 +8,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.mbrull.commons.test.IntegrationTest;
-import com.mbrull.endpoint.EmEndpointApplicationMain;
+import com.mbrull.endpoint.EmEndpointApplication;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = EmEndpointApplicationMain.class)
+@SpringApplicationConfiguration(classes = EmEndpointApplication.class)
 @WebAppConfiguration
 @Category(IntegrationTest.class)
 public class EmEndpointApplicationTests {
