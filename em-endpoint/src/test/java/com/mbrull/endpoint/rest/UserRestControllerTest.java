@@ -2,16 +2,20 @@ package com.mbrull.endpoint.rest;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.lang.reflect.Field;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.HttpStatus;
@@ -29,12 +33,13 @@ import org.springframework.util.Assert;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.mbrull.MatcherDTO;
 import com.mbrull.TestUtils;
 import com.mbrull.commons.test.UnitTest;
 import com.mbrull.core.EmCore;
-import com.mbrull.core.EmCoreImpl;
 import com.mbrull.core.dto.UserDTO;
 import com.mbrull.endpoint.EmEndpointApplication;
+import com.mbrull.endpoint.EmEndpointImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource("/test.properties")
@@ -45,16 +50,27 @@ import com.mbrull.endpoint.EmEndpointApplication;
 @Category(UnitTest.class)
 public class UserRestControllerTest {
 
+    private EmCore core;
     @Autowired
     private WebApplicationContext wac;
-
+    @Autowired
+    private EmEndpointImpl emEndpointImpl;
     private MockMvc mockMvc;
-    private EmCore mockCoreImpl = mock(EmCoreImpl.class);
     private TestUtils testUtils = new TestUtils();
 
     @Before
-    public void setup() {
+    public void setup()
+            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+        setupCoreMock();
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+    }
+
+    private void setupCoreMock()
+            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+        this.core = mock(EmCore.class);
+        Field toMock = emEndpointImpl.getClass().getDeclaredField("core");
+        toMock.setAccessible(true);
+        toMock.set(emEndpointImpl, core);
     }
 
     @Test
@@ -66,15 +82,29 @@ public class UserRestControllerTest {
     public void createUser_created() throws Exception {
 
         UserDTO user = testUtils.generateValidUserDTO();
-        doNothing().when(mockCoreImpl).createUser(user);
+        doNothing().when(core).createUser(user);
         mockMvc.perform(
                 post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
                 .andExpect(status().is(HttpStatus.CREATED.value()));
-        verify(mockCoreImpl, times(1)).createUser(user);
-        verifyNoMoreInteractions(mockCoreImpl);
+
+        verify(core, times(1)).createUser(Mockito.argThat(MatcherDTO.getUserMatcher(user)));
+        verifyNoMoreInteractions(core);
 
     }
 
 
+
+    @Test
+    public void createUser_nullemail() throws Exception {
+
+        UserDTO user = testUtils.generateValidUserDTO();
+        user.setEmail(null);
+        mockMvc.perform(
+                post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+        verify(core, never()).createUser(user);
+        verifyNoMoreInteractions(core);
+
+    }
 
 }
