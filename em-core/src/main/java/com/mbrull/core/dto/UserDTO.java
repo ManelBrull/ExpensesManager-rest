@@ -1,8 +1,11 @@
 package com.mbrull.core.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class UserDTO {
 
     private String username;
+    @NotNull
     private String email;
     private String password;
 
