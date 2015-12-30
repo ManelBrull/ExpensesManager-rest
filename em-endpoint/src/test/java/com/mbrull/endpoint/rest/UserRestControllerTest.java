@@ -92,8 +92,6 @@ public class UserRestControllerTest {
 
     }
 
-
-
     @Test
     public void createUser_nullemail() throws Exception {
 
