@@ -99,7 +99,33 @@ public class UserRestControllerTest {
         user.setEmail(null);
         mockMvc.perform(
                 post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
-                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
+                .andExpect(status().is(HttpStatus.UNPROCESSABLE_ENTITY.value()));
+        verify(core, never()).createUser(user);
+        verifyNoMoreInteractions(core);
+
+    }
+
+    @Test
+    public void createUser_nullUsername() throws Exception {
+
+        UserDTO user = testUtils.generateValidUserDTO();
+        user.setUsername(null);
+        mockMvc.perform(
+                post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
+                .andExpect(status().is(HttpStatus.UNPROCESSABLE_ENTITY.value()));
+        verify(core, never()).createUser(user);
+        verifyNoMoreInteractions(core);
+
+    }
+
+    @Test
+    public void createUser_nullPassword() throws Exception {
+
+        UserDTO user = testUtils.generateValidUserDTO();
+        user.setPassword(null);
+        mockMvc.perform(
+                post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
+                .andExpect(status().is(HttpStatus.UNPROCESSABLE_ENTITY.value()));
         verify(core, never()).createUser(user);
         verifyNoMoreInteractions(core);
 
