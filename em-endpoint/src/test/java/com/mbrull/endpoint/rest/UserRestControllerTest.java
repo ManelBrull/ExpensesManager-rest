@@ -84,7 +84,7 @@ public class UserRestControllerTest {
         UserDTO user = testUtils.generateValidUserDTO();
         doNothing().when(core).createUser(user);
         mockMvc.perform(
-                post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
+post("/user").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
                 .andExpect(status().is(HttpStatus.CREATED.value()));
 
         verify(core, times(1)).createUser(Mockito.argThat(MatcherDTO.getUserMatcher(user)));
@@ -98,7 +98,7 @@ public class UserRestControllerTest {
         UserDTO user = testUtils.generateValidUserDTO();
         user.setEmail(null);
         mockMvc.perform(
-                post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
+post("/user").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
                 .andExpect(status().is(HttpStatus.UNPROCESSABLE_ENTITY.value()));
         verify(core, never()).createUser(user);
         verifyNoMoreInteractions(core);
@@ -111,7 +111,7 @@ public class UserRestControllerTest {
         UserDTO user = testUtils.generateValidUserDTO();
         user.setUsername(null);
         mockMvc.perform(
-                post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
+post("/user").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
                 .andExpect(status().is(HttpStatus.UNPROCESSABLE_ENTITY.value()));
         verify(core, never()).createUser(user);
         verifyNoMoreInteractions(core);
@@ -124,7 +124,7 @@ public class UserRestControllerTest {
         UserDTO user = testUtils.generateValidUserDTO();
         user.setPassword(null);
         mockMvc.perform(
-                post("/user/create").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
+post("/user").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJson(user)))
                 .andExpect(status().is(HttpStatus.UNPROCESSABLE_ENTITY.value()));
         verify(core, never()).createUser(user);
         verifyNoMoreInteractions(core);

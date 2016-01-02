@@ -4,6 +4,8 @@ import com.mbrull.core.dto.UserDTO;
 
 public interface EmCore {
 
-    public void createUser(UserDTO userToCreate);
+    public long createUser(UserDTO userToCreate);
+
+    public UserDTO getUser(Long id);
 
 }

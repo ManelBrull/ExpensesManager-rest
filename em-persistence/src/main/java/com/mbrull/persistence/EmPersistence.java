@@ -10,7 +10,7 @@ import com.mbrull.persistence.entities.User;
 
 public interface EmPersistence {
 
-    public void createUser(User user);
+    public long createUser(User user);
 
     public Page<User> getUsers(Pageable pageRequest);
 

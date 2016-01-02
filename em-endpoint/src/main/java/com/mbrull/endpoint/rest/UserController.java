@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,16 +24,21 @@ public class UserController {
 
     // TODO: exception controlling and returning to client interface
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@Validated @RequestBody UserDTO user, UriComponentsBuilder ucBuilder) {
-
-        endpoint.createUser(user);
+        long userId = endpoint.createUser(user);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/create/success").build().toUri());
+        headers.setLocation(ucBuilder.path("/user/{id}").build().expand(Long.toString(userId)).toUri());
 
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable("id") long id) {
+        return new ResponseEntity<UserDTO>(endpoint.getUser(id), HttpStatus.OK);
+    }
+
     /*
      * @RequestMapping("/user/") public ResponseEntity<String> user() { long
      * count = emPersistence.countUsers(); return new ResponseEntity<String>(
@@ -43,10 +49,7 @@ public class UserController {
      * users = emPersistence.getUsers(pageRequest); return new
      * ResponseEntity<Page<User>>(users, HttpStatus.OK); }
      * 
-     * @RequestMapping("/user/{id}") public ResponseEntity<Optional<User>>
-     * findById(@PathVariable("id") Long id) { return new
-     * ResponseEntity<Optional<User>>(emPersistence.getUser(id), HttpStatus.OK);
-     * }
+     * 
      * 
      * @RequestMapping("/user/like/{username}") public
      * ResponseEntity<List<User>> findByUsernameLike(@PathVariable("username")

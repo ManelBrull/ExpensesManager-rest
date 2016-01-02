@@ -49,11 +49,9 @@ public class EmPersistenceImpl implements EmPersistence {
         return entries;
     }
 
-    public void createUser(User user) {
-        if (userRepository.findByUsernameIgnoreCase(user.getUsername()).isPresent()) {
-            return;
-        }
+    public long createUser(User user) {
         userRepository.save(user);
+        return user.getId();
     }
 
     public Page<User> getUsers(Pageable pageRequest) {
