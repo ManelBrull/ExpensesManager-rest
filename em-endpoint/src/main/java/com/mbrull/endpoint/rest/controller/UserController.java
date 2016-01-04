@@ -1,4 +1,4 @@
-package com.mbrull.endpoint.rest;
+package com.mbrull.endpoint.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -39,28 +39,5 @@ public class UserController {
         return new ResponseEntity<UserDTO>(endpoint.getUser(id), HttpStatus.OK);
     }
 
-    /*
-     * @RequestMapping("/user/") public ResponseEntity<String> user() { long
-     * count = emPersistence.countUsers(); return new ResponseEntity<String>(
-     * "There are " + count + " users enrolled", HttpStatus.OK); }
-     * 
-     * @RequestMapping(value = "/user/all", method = RequestMethod.GET) public
-     * ResponseEntity<Page<User>> getUsers(Pageable pageRequest) { Page<User>
-     * users = emPersistence.getUsers(pageRequest); return new
-     * ResponseEntity<Page<User>>(users, HttpStatus.OK); }
-     * 
-     * 
-     * 
-     * @RequestMapping("/user/like/{username}") public
-     * ResponseEntity<List<User>> findByUsernameLike(@PathVariable("username")
-     * String username) { List<User> entries =
-     * emPersistence.findUsersWithSimiliarUsername(username); return new
-     * ResponseEntity<List<User>>(entries, HttpStatus.OK); }
-     * 
-     * 
-     * 
-     * @RequestMapping("/init/") public ResponseEntity<Void> initdatabase() {
-     * emPersistence.initDatabase(); return new
-     * ResponseEntity<Void>(HttpStatus.OK); }
-     */
+
 }

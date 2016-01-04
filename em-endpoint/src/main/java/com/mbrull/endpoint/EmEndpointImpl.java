@@ -15,7 +15,8 @@ public class EmEndpointImpl implements EmEndpoint {
     }
 
     public long createUser(UserDTO userToCreate) {
-        return core.createUser(userToCreate);
+        long userId = core.createUser(userToCreate);
+        return userId;
     }
 
     public UserDTO getUser(Long id) {

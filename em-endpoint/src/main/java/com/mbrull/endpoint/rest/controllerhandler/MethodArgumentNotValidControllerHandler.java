@@ -1,4 +1,4 @@
-package com.mbrull.endpoint.rest;
+package com.mbrull.endpoint.rest.controllerhandler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;

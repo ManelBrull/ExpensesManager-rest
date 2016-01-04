@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mbrull.core.dto.UserDTO;
+import com.mbrull.core.exception.ResourceNotFoundException;
 import com.mbrull.persistence.EmPersistence;
 import com.mbrull.persistence.entities.User;
 
@@ -26,8 +27,7 @@ public class EmCoreImpl implements EmCore {
     public UserDTO getUser(Long id) {
         Optional<User> entity = persistence.getUser(id);
         if (!entity.isPresent()) {
-            // TODO: Throw exception resource do not exists?
-            throw new RuntimeException("user does not exists");
+            throw new ResourceNotFoundException("The provided user id: " + id.toString() + " does not exists");
         } else {
             return toUserDTOFrom(entity.get());
         }
