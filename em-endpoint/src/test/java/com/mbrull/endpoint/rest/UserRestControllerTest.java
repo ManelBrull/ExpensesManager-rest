@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,6 +41,7 @@ import com.mbrull.TestUtils;
 import com.mbrull.commons.test.UnitTest;
 import com.mbrull.core.EmCore;
 import com.mbrull.core.dto.UserDTO;
+import com.mbrull.core.exception.ResourceNotFoundException;
 import com.mbrull.endpoint.EmEndpointApplication;
 import com.mbrull.endpoint.EmEndpointImpl;
 
@@ -131,4 +133,22 @@ post("/user").contentType(MediaType.APPLICATION_JSON_UTF8).content(testUtils.toJ
 
     }
 
+    @Test
+    public void findById_found() throws Exception {
+        UserDTO user = testUtils.generateValidUserDTO();
+        when(core.getUser(any())).thenReturn(user);
+
+        mockMvc.perform(get("/user/1")).andExpect(status().is(HttpStatus.OK.value()));
+        verify(core, times(1)).getUser((long) 1);
+        verifyNoMoreInteractions(core);
+    }
+
+    @Test
+    public void findById_notFound() throws Exception {
+        UserDTO user = testUtils.generateValidUserDTO();
+        when(core.getUser(any())).thenThrow(new ResourceNotFoundException("User not found"));
+        mockMvc.perform(get("/user/1")).andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+        verify(core, times(1)).getUser((long) 1);
+        verifyNoMoreInteractions(core);
+    }
 }

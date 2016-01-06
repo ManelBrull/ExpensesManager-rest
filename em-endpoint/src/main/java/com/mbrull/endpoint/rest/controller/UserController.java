@@ -36,7 +36,8 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable("id") long id) {
-        return new ResponseEntity<UserDTO>(endpoint.getUser(id), HttpStatus.OK);
+        UserDTO user = endpoint.getUser(id);
+        return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
     }
 
 
